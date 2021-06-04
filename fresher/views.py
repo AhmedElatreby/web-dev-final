@@ -3,12 +3,6 @@ from django.shortcuts import get_object_or_404, render
 from .models import Category, Recipe
 
 
-def categories(request):
-    return {
-        'categories': Category.objects.all()
-    }
-
-
 def all_recipes(request):
     recipes = Recipe.objects.all()
     return render(request, 'home.html', {'recipes': recipes})
@@ -22,4 +16,4 @@ def category_list(request, category_slug=None):
 
 def recipe_detail(request, slug):
     recipe = get_object_or_404(Recipe, slug=slug)
-    return render(request, 'fresher/detail.html', {'recipe': recipe})
+    return render(request, 'fresher/single.html', {'recipe': recipe})

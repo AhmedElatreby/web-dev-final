@@ -29,11 +29,11 @@ class TestCategoriesModel(TestCase):
 
 class TestRecipeModel(TestCase):
     def setUp(self):
-        Category.objects.create(name='recipe', slug='recipe')
-        self.data1 = Recipe.objects.create(recip_id=1, title='recipe beginners', created_by_id=1,
-                                           slug='recipe-beginners', price='20.00', image='recipe')
-        self.data2 = Recipe.recipes.create(category_id=1, title='recipe advanced', created_by_id=1,
-                                           slug='recipe-advanced', price='20.00', image='recipe', is_active=False)
+        Category.objects.create(name='vegan', slug='vegan-chilli-barney-desmazery')
+        self.data1 = Recipe.objects.create(recip_id=1, title='vegan chilli', created_by_id=1,
+                                           slug='vegan-chilli-barney-desmazery', price='2.99', image='recipe')
+        self.data2 = Recipe.recipes.create(category_id=1, title='vegan chilli', created_by_id=1,
+                                           slug='vegan-chilli-barney-desmazery', price='2.99', image='recipe')
 
     def test_recipe_model_entry(self):
         """
@@ -41,4 +41,4 @@ class TestRecipeModel(TestCase):
         """
         data = self.data1
         self.assertTrue(isinstance(data, Recipe))
-        self.assertNotEqual(str(data), 'recipe beginners')
+        self.assertNotEqual(str(data), 'vegan-chilli-barney-desmazery')

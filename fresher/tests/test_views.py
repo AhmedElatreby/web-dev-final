@@ -20,9 +20,9 @@ class TestViewResponses(TestCase):
         self.c = Client()
         self.factory = RequestFactory()
         User.objects.create(username='admin')
-        Category.objects.create(name='recipe', slug='recipe')
-        Recipe.objects.create(category_id=1, title='Satay sweet potato curry', created_by_id=1,
-                              slug='recipe-beginners', price='20.00', image='recipe')
+        Category.objects.create(name='vegan chilli', slug='vegan-chilli-barney-desmazery')
+        Recipe.objects.create(category_id=1, title='vegan chilli', created_by_id=1,
+                              slug='vegan-chilli-barney-desmazery', price='2.99', image='recipe')
 
     def test_url_allowed_hosts(self):
         """
@@ -55,7 +55,7 @@ class TestViewResponses(TestCase):
         request = HttpRequest()
         response = all_recipes(request)
         html = response.content.decode('utf8')
-        self.assertIn('<title>Home</title>', html)
+        self.assertIn('<title>Fresher</title>', html)
         self.assertTrue(html.startswith('\n<!DOCTYPE html>\n'))
         self.assertEqual(response.status_code, 200)
 
@@ -63,9 +63,9 @@ class TestViewResponses(TestCase):
         """
         Example: Using request factory
         """
-        request = self.factory.get('/item/recipe-recipe')
+        request = self.factory.get('/single/recipe-recipe')
         response = all_recipes(request)
         html = response.content.decode('utf8')
-        self.assertIn('<title>Home</title>', html)
+        self.assertIn('<title>Fresher</title>', html)
         self.assertTrue(html.startswith('\n<!DOCTYPE html>\n'))
         self.assertEqual(response.status_code, 200)
