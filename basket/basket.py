@@ -35,7 +35,7 @@ class Basket():
         and return recipes
         """
         recipe_ids = self.basket.keys()
-        recipes = Recipe.recipes.filter(id__in=recipe_ids)
+        recipes = Recipe.objects.filter(id__in=recipe_ids)
         basket = self.basket.copy()
 
         for recipe in recipes:

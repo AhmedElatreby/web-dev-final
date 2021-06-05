@@ -61,8 +61,8 @@
 </main>
 
 <script>
-    // Delete Item
-    $(document).on('click', '.delete-button', function (e) {
+    // Delete recipe
+    $(document).on('click', '#delete-button', function (e) {
         e.preventDefault();
         var prodid = $(this).data('index');
         $.ajax({
@@ -82,7 +82,7 @@
         });
     })
 
-    // Update Item
+    // Update recipe
     $(document).on('click', '.update-button', function (e) {
         e.preventDefault();
         var prodid = $(this).data('index');
