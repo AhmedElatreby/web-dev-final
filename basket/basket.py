@@ -27,4 +27,53 @@ class Basket():
         else:
             self.basket[recipe_id] = {'price': str(recipe.price), 'qty': qty}
 
-        self.save()    
+        self.save()   
+
+    def __iter__(self):
+        """
+        Collect the recipe_id in the session data to query the database
+        and return recipes
+        """
+        recipe_ids = self.basket.keys()
+        recipes = Recipe.recipes.filter(id__in=recipe_ids)
+        basket = self.basket.copy()
+
+        for recipe in recipes:
+            basket[str(recipe.id)]['recipe'] = recipe
+
+        for item in basket.values():
+            item['price'] = Decimal(item['price'])
+            item['total_price'] = item['price'] * item['qty']
+            yield item 
+
+    def __len__(self):
+        """
+        Get the basket data and count the qty of items
+        """
+        return sum(item['qty'] for item in self.basket.values())            
+
+    def update(self, recipe, qty):
+        """
+        Update values in session data
+        """
+        recipe_id = str(recipe)
+        if recipe_id in self.basket:
+            self.basket[recipe_id]['qty'] = qty
+        self.save()
+
+    def get_total_price(self):
+        return sum(Decimal(item['price']) * item['qty'] for item in self.basket.values())    
+
+    def delete(self, recipe):
+        """
+        Delete item from session data
+        """
+        recipe_id = str(recipe)
+
+        if recipe_id in self.basket:
+            del self.basket[recipe_id]
+            print(recipe_id)
+            self.save()
+
+    def save(self):
+        self.session.modified = True        
