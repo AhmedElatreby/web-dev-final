@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-from fresher.models import Product
+from fresher.models import Recipe
 
 
 class Basket():
@@ -13,5 +13,5 @@ class Basket():
         self.session = request.session
         basket = self.session.get('skey')
         if 'skey' not in request.session:
-            basket = self.session['skey'] = {}
+            basket = self.session['skey'] = {'number': 343444343}
         self.basket = basket
